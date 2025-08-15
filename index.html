@@ -23,35 +23,24 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">LK</div>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#videos">Videos</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section id="hero" class="hero">
+  <header class="profile">
+    <div class="intro">
       <h1>Lukas Klostermair</h1>
       <p>Engineer &amp; Developer</p>
-      <a class="btn" href="#projects">View My Work</a>
-    </section>
-    <section id="about">
-      <h2>About</h2>
-      <p>I'm Lukas Klostermair, an engineer passionate about robotics and software development.</p>
-    </section>
-    <section id="experience">
-      <h2>Experience</h2>
-      <ul>
-        <li>Job Title – Company (Year–Year)</li>
-        <li>Another Role – Organization (Year–Year)</li>
-      </ul>
-    </section>
+      <p class="bio">I'm Lukas Klostermair, a soon-to-graduate engineer passionate about robotics and software development.</p>
+      <div class="cta-buttons">
+        <a href="#projects">Projects</a>
+        <a href="assets/Lukas_Klostermair_CV.pdf" target="_blank" rel="noopener">CV</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/lklostermair" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/lukas-klostermair-09ab61224" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="portrait">
+      <img src="https://via.placeholder.com/300x300.png?text=Lukas" alt="Lukas Klostermair" />
+    </div>
+  </header>
+  <main>
     <section id="projects">
       <h2>Projects</h2>
       <ul id="repo-list">
@@ -61,23 +50,22 @@
     <section id="videos">
       <h2>Videos</h2>
       <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Video" frameborder="0" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/YcPs4sjyHLo" title="Personal Introduction" frameborder="0" allowfullscreen></iframe>
       </div>
     </section>
-    <section id="contact">
+  <section id="contact">
       <h2>Contact</h2>
       <ul class="contact-list">
         <li>Email: <a href="mailto:lukas.klostermair@gmail.com">lukas.klostermair@gmail.com</a></li>
         <li>GitHub: <a href="https://github.com/lklostermair" target="_blank" rel="noopener">github.com/lklostermair</a></li>
         <li>LinkedIn: <a href="https://www.linkedin.com/in/lukas-klostermair-09ab61224" target="_blank" rel="noopener">linkedin.com/in/lukas-klostermair-09ab61224</a></li>
         <li><a href="assets/Lukas_Klostermair_CV.pdf" target="_blank" rel="noopener">Download CV</a></li>
-
       </ul>
     </section>
   </main>
   <footer>
     <p>&copy; 2024 Lukas Klostermair</p>
   </footer>
-  <script src="scripts/fetchRepos.js"></script>
-</body>
+    <script src="scripts/fetchRepos.js"></script>
+  </body>
 </html>
