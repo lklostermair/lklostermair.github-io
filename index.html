@@ -1,71 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="default">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Lukas Klostermair, engineer and developer." />
-  <meta name="author" content="Lukas Klostermair" />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Lukas Klostermair" />
-  <meta property="og:description" content="Engineer &amp; developer showcasing projects and experience." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lklostermair.github.io" />
-  <meta property="og:locale" content="en_US" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lukas Klostermair" />
-  <meta name="twitter:description" content="Engineer &amp; developer showcasing projects and experience." />
-  <meta name="twitter:url" content="https://lklostermair.github.io" />
-  <link rel="canonical" href="https://lklostermair.github.io/" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Lukas Klostermair</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <meta name="description" content="Personal website"/>
+  <link rel="canonical" href="https://lklostermair.github.io/"/>
+  <meta property="og:title" content="Lukas Klostermair"/>
+  <meta property="og:description" content="Personal website"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://lklostermair.github.io/"/>
+  <meta property="og:image" content="assets/portrait.svg"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="theme-color" content="#FF4D4D"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.7;}
+    header.hero{display:flex;flex-wrap:wrap;align-items:center;gap:2rem;max-width:980px;margin:auto;padding:4rem 1rem 2rem;}
+    .hero .info{flex:1 1 300px;}
+    .hero h1{font-size:clamp(3rem,6vw,4rem);letter-spacing:-.02em;line-height:1.05;margin:0;}
+    .hero p{color:var(--muted);}
+    .portrait{flex:0 0 320px;position:relative;width:320px;height:320px;border-radius:50%;overflow:hidden;}
+    .portrait img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+    .nav-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;}
+    .nav-pills button{padding:.4rem 1rem;border:1px solid var(--line);border-radius:999px;}
+  </style>
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
-<body>
-  <header class="profile">
-    <div class="intro">
-      <h1>Lukas Klostermair</h1>
-      <p>Engineer &amp; Developer</p>
-      <p class="bio">I'm Lukas Klostermair, a soon-to-graduate engineer passionate about robotics and software development.</p>
-      <div class="cta-buttons">
-        <a href="#projects">Projects</a>
-        <a href="assets/Lukas_Klostermair_CV.pdf" target="_blank" rel="noopener">CV</a>
-        <a href="#contact">Contact</a>
-        <a href="https://github.com/lklostermair" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/lukas-klostermair-09ab61224" target="_blank" rel="noopener">LinkedIn</a>
+<body class="no-webfont">
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="hero">
+    <div class="info">
+      <h1 id="name">Name</h1>
+      <p id="title"></p>
+      <p id="short-intro"></p>
+      <div class="nav-pills" role="tablist">
+        <button onclick="document.getElementById('about').scrollIntoView()">About</button>
+        <button onclick="document.getElementById('pubs').scrollIntoView()">Publications</button>
+        <button onclick="document.getElementById('projects').scrollIntoView()">Projects</button>
+        <button onclick="document.getElementById('cv').scrollIntoView()">CV</button>
+        <button onclick="document.getElementById('contact').scrollIntoView()">Contact</button>
       </div>
     </div>
-    <div class="portrait">
-      <img src="https://via.placeholder.com/300x300.png?text=Lukas" alt="Lukas Klostermair" />
-    </div>
+    <div class="portrait"><img src="assets/portrait.svg" width="320" height="320" alt="Portrait" fetchpriority="high"/></div>
   </header>
-  <main>
+  <main id="content">
+    <section id="about">
+      <div class="tablist" role="tablist" aria-label="Bio"></div>
+    </section>
+    <section id="pubs">
+      <h2>Publications</h2>
+      <div id="pub-filter" role="tablist" aria-label="Filter publications"></div>
+      <p id="pub-count" aria-live="polite"></p>
+      <ul id="pub-list"></ul>
+    </section>
     <section id="projects">
       <h2>Projects</h2>
-      <ul id="repo-list">
-        <!-- Repositories will be populated here -->
-      </ul>
+      <div class="projects-grid"></div>
     </section>
-    <section id="videos">
-      <h2>Videos</h2>
-      <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/YcPs4sjyHLo" title="Personal Introduction" frameborder="0" allowfullscreen></iframe>
-      </div>
+    <section id="cv">
+      <h2>CV</h2>
+      <ul id="cv-list"></ul>
     </section>
-  <section id="contact">
+    <section id="contact">
       <h2>Contact</h2>
-      <ul class="contact-list">
-        <li>Email: <a href="mailto:lukas.klostermair@gmail.com">lukas.klostermair@gmail.com</a></li>
-        <li>GitHub: <a href="https://github.com/lklostermair" target="_blank" rel="noopener">github.com/lklostermair</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/lukas-klostermair-09ab61224" target="_blank" rel="noopener">linkedin.com/in/lukas-klostermair-09ab61224</a></li>
-        <li><a href="assets/Lukas_Klostermair_CV.pdf" target="_blank" rel="noopener">Download CV</a></li>
-      </ul>
+      <p><a id="email">Email</a></p>
+      <div class="social-icons"></div>
     </section>
   </main>
   <footer>
-    <p>&copy; 2024 Lukas Klostermair</p>
+    <div>© <span id="footer-name">Lukas Klostermair</span> – Last updated <span id="updated"></span></div>
+    <div class="theme-switch">
+      <button id="theme-btn">Switch theme</button>
+      <span id="theme-current"></span>
+    </div>
   </footer>
-    <script src="scripts/fetchRepos.js"></script>
-  </body>
+  <script type="module" src="script.js" defer></script>
+</body>
 </html>
