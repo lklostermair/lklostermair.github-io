@@ -1,83 +1,122 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en" data-theme="default">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Lukas Klostermair</title>
   <meta name="description" content="Personal website"/>
   <link rel="canonical" href="https://lklostermair.github.io/"/>
+
+  <!-- Social cards -->
   <meta property="og:title" content="Lukas Klostermair"/>
   <meta property="og:description" content="Personal website"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://lklostermair.github.io/"/>
   <meta property="og:image" content="assets/portrait.svg"/>
   <meta name="twitter:card" content="summary"/>
-  <meta name="theme-color" content="#FF4D4D"/>
+  <meta name="theme-color" content="#ffffff"/>
+
+  <!-- Fonts + critical styles load -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Tiny critical CSS (page still uses styles.css for everything) -->
   <style>
-    body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.7;}
-    header.hero{display:flex;flex-wrap:wrap;align-items:center;gap:2rem;max-width:980px;margin:auto;padding:4rem 1rem 2rem;}
-    .hero .info{flex:1 1 300px;}
-    .hero h1{font-size:clamp(3rem,6vw,4rem);letter-spacing:-.02em;line-height:1.05;margin:0;}
-    .hero p{color:var(--muted);}
-    .portrait{flex:0 0 320px;position:relative;width:320px;height:320px;border-radius:50%;overflow:hidden;}
-    .portrait img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-    .nav-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;}
-    .nav-pills button{padding:.4rem 1rem;border:1px solid var(--line);border-radius:999px;}
+    body{margin:0;font-family:'Inter',system-ui,sans-serif;line-height:1.7}
+    main{max-width:960px;margin:auto;padding:0 1rem}
+    header.hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2rem;padding:4rem 1rem 2rem;max-width:760px;margin:0 auto}
+    .portrait{flex:none;width:320px;height:320px;border-radius:50%;overflow:hidden}
   </style>
+
   <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
-<body class="no-webfont">
+<body>
   <a class="skip-link" href="#content">Skip to content</a>
-  <header class="hero">
-    <div class="info">
-      <h1 id="name">Name</h1>
-      <p id="title"></p>
-      <p id="short-intro"></p>
-      <div class="nav-pills" role="tablist">
-        <button onclick="document.getElementById('about').scrollIntoView()">About</button>
-        <button onclick="document.getElementById('pubs').scrollIntoView()">Publications</button>
-        <button onclick="document.getElementById('projects').scrollIntoView()">Projects</button>
-        <button onclick="document.getElementById('cv').scrollIntoView()">CV</button>
-        <button onclick="document.getElementById('contact').scrollIntoView()">Contact</button>
-      </div>
+
+  <header class="hero" aria-labelledby="name">
+    <div class="portrait" aria-hidden="true">
+      <img src="assets/portrait.svg" width="320" height="320" alt="Portrait" fetchpriority="high">
     </div>
-    <div class="portrait"><img src="assets/portrait.svg" width="320" height="320" alt="Portrait" fetchpriority="high"/></div>
+
+    <div class="info">
+      <h1 id="name">Lukas Klostermair</h1>
+      <p class="subtitle" id="title">Robotics & ML</p>
+
+      <!-- Tabs directly under name (lowercase like the screenshot) -->
+      <nav class="top-nav" aria-label="Primary" role="tablist">
+        <button role="tab" id="tab-iprl" aria-controls="panel-iprl" aria-selected="true">iprl</button>
+        <button role="tab" id="tab-news" aria-controls="panel-news" aria-selected="false">news</button>
+        <button role="tab" id="tab-pubs" aria-controls="panel-pubs" aria-selected="false">publications</button>
+        <button role="tab" id="tab-teaching" aria-controls="panel-teaching" aria-selected="false">teaching</button>
+        <button role="tab" id="tab-contact" aria-controls="panel-contact" aria-selected="false">contact</button>
+      </nav>
+    </div>
   </header>
+
   <main id="content">
-    <section id="about">
-      <div class="tablist" role="tablist" aria-label="Bio"></div>
+    <section id="about" aria-labelledby="about-h" class="visible">
+      <h2 id="about-h" class="visually-hidden">About</h2>
+      <p class="bio">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in risus a augue vehicula
+        suscipit. Curabitur non orci sed nibh pretium dictum. In my work I focus on machine
+        learning for robotics, grasping, and tactile perception.
+      </p>
     </section>
-    <section id="pubs">
-      <h2>Publications</h2>
-      <div id="pub-filter" role="tablist" aria-label="Filter publications"></div>
-      <p id="pub-count" aria-live="polite"></p>
-      <ul id="pub-list"></ul>
-    </section>
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="projects-grid"></div>
-    </section>
-    <section id="cv">
-      <h2>CV</h2>
-      <ul id="cv-list"></ul>
-    </section>
-    <section id="contact">
-      <h2>Contact</h2>
-      <p><a id="email">Email</a></p>
-      <div class="social-icons"></div>
+
+    <!-- Panels area: content swaps here without scrolling -->
+    <section class="panels-area">
+      <div id="panel-iprl" role="tabpanel" aria-labelledby="tab-iprl" class="panel active">
+        <h2 class="panel-title">iprl</h2>
+        <p>Lab/initiative content placeholder.</p>
+      </div>
+
+      <div id="panel-news" role="tabpanel" aria-labelledby="tab-news" class="panel">
+        <h2 class="panel-title">news</h2>
+        <ul class="list">
+          <li>08/2025 — Site refresh with minimal design and in-place tabbed content.</li>
+          <li>06/2025 — Project milestones and new publications coming soon.</li>
+        </ul>
+      </div>
+
+      <div id="panel-pubs" role="tabpanel" aria-labelledby="tab-pubs" class="panel">
+        <h2 class="panel-title">publications</h2>
+        <div class="filter-chips" id="pub-filter" aria-label="Filter publications"></div>
+        <p id="pub-count" aria-live="polite"></p>
+        <ul id="pub-list" class="list"></ul>
+      </div>
+
+      <div id="panel-teaching" role="tabpanel" aria-labelledby="tab-teaching" class="panel">
+        <h2 class="panel-title">teaching</h2>
+        <ul class="list">
+          <li>Guest lectures and workshop topics to be announced.</li>
+        </ul>
+      </div>
+
+      <div id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" class="panel">
+        <h2 class="panel-title">contact</h2>
+        <p><a id="email" href="mailto:lukas.klostermair@gmail.com" aria-label="Email Lukas">lukas.klostermair@gmail.com</a></p>
+        <div class="social-icons" aria-label="Social links">
+          <a href="https://github.com/lklostermair" target="_blank" rel="noopener" aria-label="GitHub">
+            <img src="assets/social/github.svg" width="24" height="24" alt="">
+          </a>
+          <a href="https://www.linkedin.com/in/lukas-klostermair-09ab61224" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="assets/social/linkedin.svg" width="24" height="24" alt="">
+          </a>
+          <a href="mailto:lukas.klostermair@gmail.com" aria-label="Send email">
+            <img src="assets/social/gmail.svg" width="24" height="24" alt="">
+          </a>
+        </div>
+      </div>
     </section>
   </main>
+
   <footer>
     <div>© <span id="footer-name">Lukas Klostermair</span> – Last updated <span id="updated"></span></div>
-    <div class="theme-switch">
-      <button id="theme-btn">Switch theme</button>
-      <span id="theme-current"></span>
-    </div>
   </footer>
+
   <script type="module" src="script.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,62 @@
 [
-  {"year":"2024","position":"Researcher","institution":"Example University"},
-  {"year":"2023","position":"MSc Computer Science","institution":"Example University"}
+  {
+    "year": "2024–present",
+    "position": "Student Machine Learning Engineer (Part Time)",
+    "institution": "Baind AG",
+    "description": "Work on ML data pipelines, boost model efficiency, and help build a scalable RL environment for energy optimization."
+  },
+  {
+    "year": "2024",
+    "position": "Student Researcher (Part Time)",
+    "institution": "Intelligent Neuroprosthetics and Human Robotics Lab, Prof. Cristina Piazza",
+    "description": "Designed a modular prosthetic hand socket and worked on semi-autonomous grasping with object recognition."
+  },
+  {
+    "year": "2024–present",
+    "position": "M. Sc. Biomedical Engineering and Medical Physics",
+    "institution": "Technical University of Munich",
+    "description": "Studying deep learning and robotics, currently ranked in the top 12% of the program."
+  },
+  {
+    "year": "2023",
+    "position": "Student Researcher (Full Time)",
+    "institution": "F. Hoffmann La Roche AG",
+    "description": "Bachelor thesis on improving depyrogenation tunnel validation using predictive models to cut downtime."
+  },
+  {
+    "year": "2022–2023",
+    "position": "Student Project Manager (Part Time)",
+    "institution": "Syskron GmbH / Krones AG",
+    "description": "Created budget forecasts for 20+ projects and set up a cleaner, standardized budgeting template."
+  },
+  {
+    "year": "2022",
+    "position": "Semester Abroad",
+    "institution": "Universidad EAN, Bogotá",
+    "description": "Took courses in chemistry, finance, and project management — finished with a perfect GPA."
+  },
+  {
+    "year": "2021–2022",
+    "position": "Innovation Intern (Full Time)",
+    "institution": "BMW AG",
+    "description": "Handled big datasets for an ML project and built nationwide micro-IT tools in PowerApps."
+  },
+  {
+    "year": "2021",
+    "position": "Teaching Assistant",
+    "institution": "University of Applied Sciences Regensburg",
+    "description": "Helped teach Technical Mechanics III – Dynamics."
+  },
+  {
+    "year": "2020–2021",
+    "position": "Working Student & Intern",
+    "institution": "Ilmtalkliniken GmbH",
+    "description": "Assisted in nursing and functional medicine departments."
+  },
+  {
+    "year": "2019–2023",
+    "position": "B. Sc. Biomedical Engineering",
+    "institution": "University of Applied Sciences Regensburg",
+    "description": "Focused on machine learning and dynamics, graduated in the top 20%."
+  }
 ]

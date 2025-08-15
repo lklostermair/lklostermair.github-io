@@ -1,160 +1,138 @@
-const PROFILE={
-  name:"Lukas Klostermair",
-  title:"Researcher",
-  shortBio:"Short bio goes here.",
-  longBio:"Longer biography text for more details.",
-  speakerBio:"Speaker biography for events.",
-  email:"mailto:lukas@example.com",
-  socials:{
-    github:"https://github.com/lklostermair",
-    scholar:"https://scholar.google.com",
-    twitter:"https://twitter.com",
-    linkedin:"https://linkedin.com"
+// script.js — tabs swap content in-place; pubs demo plumbing
+// Last updated is shown in footer.
+const updated = document.getElementById('updated');
+if (updated) updated.textContent = new Date(document.lastModified).toLocaleDateString();
+
+// --- Tabs (top-nav) ---
+const tablist = document.querySelector('.top-nav[role="tablist"]');
+const tabs = [...document.querySelectorAll('.top-nav [role="tab"]')];
+const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+
+function activateTab(tab, pushHash = true) {
+  // aria state
+  tabs.forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+  // panels
+  panels.forEach(p => p.classList.toggle('active', p.id === tab.getAttribute('aria-controls')));
+  // URL state (no scroll)
+  if (pushHash) {
+    const hash = tab.id.replace('tab-',''); // e.g., iprl
+    history.replaceState(null, '', `#${hash}`);
   }
-};
-const PUBLICATIONS=[
-  {title:"Sample Publication",authors:"L. Klostermair",venue:"Journal",year:"2024",link:"#",tags:["ml","ai"]}
-];
-const PROJECTS=[
-  {title:"Sample Project",blurb:"Project description.",stack:["JS","CSS"],github:"https://github.com",live:"#"}
-];
+}
 
-function qs(sel){return document.querySelector(sel);}
-function qsa(sel){return [...document.querySelectorAll(sel)];}
+function getTabByHash(hash) {
+  return tabs.find(t => t.id === `tab-${hash}`);
+}
 
-function renderProfile(){
-  qs('#name').textContent=PROFILE.name;
-  qs('#title').textContent=PROFILE.title;
-  qs('#short-intro').textContent=PROFILE.shortBio;
-  qs('#email').href=PROFILE.email;
-  const socials=qs('.social-icons');
-  for(const [key,url] of Object.entries(PROFILE.socials)){
-    const a=document.createElement('a');
-    a.href=url;a.target="_blank";a.rel="noopener";
-    const img=document.createElement('img');
-    img.src=`assets/social/${key}.svg`;img.alt=key;
-    a.appendChild(img);socials.appendChild(a);
-  }
-  const tablist=qs('.tablist');
-  ['shortBio','longBio','speakerBio'].forEach((k,i)=>{
-    const btn=document.createElement('button');
-    btn.id=`tab-${k}`;btn.setAttribute('role','tab');btn.setAttribute('aria-controls',`panel-${k}`);btn.textContent=k.replace('Bio','');
-    if(i===0)btn.classList.add('active');
-    tablist.appendChild(btn);
-    const panel=document.createElement('div');
-    panel.id=`panel-${k}`;panel.setAttribute('role','tabpanel');
-    panel.textContent=PROFILE[k];
-    if(i===0)panel.classList.add('active');
-    panel.setAttribute('aria-labelledby',btn.id);
-    qs('#about').appendChild(panel);
-    btn.addEventListener('click',()=>setBio(k));
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => activateTab(tab));
+  tab.addEventListener('keydown', (e) => {
+    const i = tabs.indexOf(tab);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = tabs[(i + 1) % tabs.length];
+      next.focus(); activateTab(next);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = tabs[(i - 1 + tabs.length) % tabs.length];
+      prev.focus(); activateTab(prev);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); tabs[0].focus(); activateTab(tabs[0]);
+    } else if (e.key === 'End') {
+      e.preventDefault(); tabs[tabs.length - 1].focus(); activateTab(tabs[tabs.length - 1]);
+    }
   });
-}
-function setBio(key){
-  qsa('[role="tab"]').forEach(b=>{b.classList.toggle('active',b.id===`tab-${key}`);b.setAttribute('aria-selected',b.id===`tab-${key}`)});
-  qsa('[role="tabpanel"]').forEach(p=>{p.classList.toggle('active',p.id===`panel-${key}`);});
-}
-
-function renderPublications(){
-  const list=qs('#pub-list');
-  const tags=new Set();
-  PUBLICATIONS.forEach(p=>{p.tags.forEach(t=>tags.add(t));});
-  const params=new URLSearchParams(location.search);
-  const active=params.get('tags')?.split(',')||[];
-  const filter=qs('#pub-filter');
-  tags.forEach(tag=>{
-    const btn=document.createElement('button');btn.textContent=tag;btn.dataset.tag=tag;btn.classList.toggle('active',active.includes(tag));
-    filter.appendChild(btn);
-  });
-  function update(){
-    const selected=qsa('#pub-filter button.active').map(b=>b.dataset.tag);
-    const q=new URLSearchParams(location.search);
-    selected.length?q.set('tags',selected.join(',')):q.delete('tags');
-    history.replaceState(null,'',`?${q}`);
-    list.innerHTML='';
-    let count=0;
-    PUBLICATIONS.forEach(p=>{
-      if(selected.length && !p.tags.some(t=>selected.includes(t)))return;
-      const li=document.createElement('li');
-      li.innerHTML=`<span class="title"><a href="${p.link}" target="_blank" rel="noopener">${p.title}</a></span> <span class="meta">${p.authors} – ${p.venue} (${p.year})</span>`;
-      list.appendChild(li);count++;});
-    qs('#pub-count').textContent=`${count} result${count===1?'':'s'}`;
-  }
-  filter.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){e.target.classList.toggle('active');update();}});
-  update();
-}
-
-function renderProjects(){
-  const grid=qs('.projects-grid');
-  PROJECTS.forEach(p=>{
-    const card=document.createElement('div');card.className='project-card reveal';
-    card.innerHTML=`<h3>${p.title}</h3><p>${p.blurb}</p>`;
-    const t=document.createElement('div');t.className='tags';p.stack.forEach(s=>{const span=document.createElement('span');span.textContent=s;t.appendChild(span);});
-    card.appendChild(t);
-    const links=document.createElement('p');
-    if(p.github){links.innerHTML+=`<a href="${p.github}" target="_blank" rel="noopener">GitHub</a> `;}
-    if(p.live){links.innerHTML+=`<a href="${p.live}" target="_blank" rel="noopener">Live</a>`;}
-    card.appendChild(links);
-    grid.appendChild(card);
-  });
-}
-
-async function renderCV(){
-  try{
-    const res=await fetch('assets/cv.json');
-    const data=await res.json();
-    const list=qs('#cv-list');
-    data.forEach(item=>{
-      const li=document.createElement('li');li.textContent=`${item.year} – ${item.position}, ${item.institution}`;list.appendChild(li);});
-  }catch(e){console.error(e);}
-}
-
-function themeInit(){
-  const stored=localStorage.getItem('theme')||'default';
-  document.documentElement.dataset.theme=stored;
-  qs('#theme-current').textContent=stored;
-}
-function themeSwitch(){
-  const order=['default','warm','cool'];
-  let idx=order.indexOf(document.documentElement.dataset.theme);
-  idx=(idx+1)%order.length;
-  const t=order[idx];
-  document.documentElement.dataset.theme=t;
-  localStorage.setItem('theme',t);
-  qs('#theme-current').textContent=t;
-}
-
-function reveal(){
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach((e,i)=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:.12});
-  qsa('section').forEach((sec,i)=>{io.observe(sec);});
-}
-
-function portraitParallax(){
-  const p=qs('.portrait');
-  p.addEventListener('pointermove',e=>{
-    const rect=p.getBoundingClientRect();
-    const x=(e.clientX-rect.left-rect.width/2)/rect.width;
-    const y=(e.clientY-rect.top-rect.height/2)/rect.height;
-    const dx=Math.max(Math.min(x*6,6),-6);
-    const dy=Math.max(Math.min(y*-6,6),-6);
-    p.style.transform=`rotateX(${dy}deg) rotateY(${dx}deg)`;
-  });
-  p.addEventListener('pointerleave',()=>{p.style.transform='';});
-}
-
-function lastUpdated(){
-  qs('#updated').textContent=new Date(document.lastModified).toLocaleDateString();
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  renderProfile();
-  renderPublications();
-  renderProjects();
-  renderCV();
-  themeInit();
-  qs('#theme-btn').addEventListener('click',themeSwitch);
-  reveal();
-  portraitParallax();
-  lastUpdated();
 });
+
+// Hash deep-link support (e.g., /#publications)
+function initFromHash() {
+  const raw = (location.hash || '').replace('#','').trim();
+  const valid = raw && getTabByHash(raw);
+  activateTab(valid || tabs[0], false);
+}
+window.addEventListener('hashchange', initFromHash);
+initFromHash();
+
+// --- Publications demo data + filter wiring (optional; safe to remove if unused) ---
+const PUBLICATIONS = [
+  // Example entries:
+  // { title: "Paper Title", authors: "A. Author, B. Author", venue: "Conf 2025", year: 2025, link: "#", tags: ["grasping","perception"] }
+];
+
+const pubList = document.getElementById('pub-list');
+const pubFilter = document.getElementById('pub-filter');
+const pubCount = document.getElementById('pub-count');
+
+function uniqueTags() {
+  const set = new Set();
+  PUBLICATIONS.forEach(p => (p.tags || []).forEach(t => set.add(t)));
+  return Array.from(set).sort();
+}
+
+function parseTagsFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const tags = params.get('tags');
+  return tags ? tags.split(',').map(s => s.trim()).filter(Boolean) : [];
+}
+
+function setTagsInUrl(tags) {
+  const params = new URLSearchParams(location.search);
+  if (tags.length) params.set('tags', tags.join(','));
+  else params.delete('tags');
+  history.replaceState(null, '', `${location.pathname}${params.toString() ? '?' + params.toString() : ''}${location.hash}`);
+}
+
+function renderFilters(activeTags) {
+  pubFilter.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.textContent = 'All';
+  allBtn.setAttribute('aria-pressed', String(activeTags.length === 0));
+  allBtn.addEventListener('click', () => {
+    setTagsInUrl([]); renderFilters([]); renderPubs([]);
+  });
+  pubFilter.appendChild(allBtn);
+
+  uniqueTags().forEach(tag => {
+    const b = document.createElement('button');
+    b.textContent = tag;
+    b.setAttribute('aria-pressed', String(activeTags.includes(tag)));
+    b.addEventListener('click', () => {
+      const next = activeTags.includes(tag) ? activeTags.filter(t => t !== tag) : [...activeTags, tag];
+      setTagsInUrl(next); renderFilters(next); renderPubs(next);
+    });
+    pubFilter.appendChild(b);
+  });
+}
+
+function renderPubs(activeTags) {
+  const items = !activeTags.length
+    ? PUBLICATIONS
+    : PUBLICATIONS.filter(p => (p.tags || []).every(t => activeTags.includes(t)));
+  pubList.innerHTML = items.map(p => `
+    <li>
+      <strong><a href="${p.link || '#'}" target="_blank" rel="noopener">${p.title}</a></strong><br>
+      <span>${p.authors}</span> — <em>${p.venue}</em> (${p.year})
+    </li>
+  `).join('');
+  if (pubCount) pubCount.textContent = `${items.length} result${items.length === 1 ? '' : 's'}`;
+}
+
+// Initialize publications UI when its panel first becomes active
+let pubsInitialized = false;
+function initPublicationsIfNeeded() {
+  if (pubsInitialized) return;
+  pubsInitialized = true;
+  const active = parseTagsFromUrl();
+  renderFilters(active);
+  renderPubs(active);
+}
+
+// Observe panel activation to lazily init pubs
+const observer = new MutationObserver(() => {
+  const pubsPanel = document.getElementById('panel-pubs');
+  if (pubsPanel && pubsPanel.classList.contains('active')) initPublicationsIfNeeded();
+});
+observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'] });
+
+// If deep-linked to publications, initialize immediately
+if ((location.hash || '').includes('pubs')) initPublicationsIfNeeded();
