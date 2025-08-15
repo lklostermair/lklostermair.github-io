@@ -121,6 +121,15 @@ section {
   height: 100%;
 }
 
+.contact-list {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-list li {
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 600px) {
   nav ul {
     gap: 1rem;
