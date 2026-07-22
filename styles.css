@@ -73,7 +73,7 @@ main{
   padding-inline: var(--page-pad);
 }
 header.hero{
-  min-height:70svh;
+  min-height:55svh;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; gap:1.5rem; padding:2rem var(--page-pad) 0.5rem;
 }
@@ -422,8 +422,8 @@ footer{
   pointer-events:none;z-index:1;overflow:hidden;
   transition:opacity .4s ease;
 }
-.invader-gutter--left{left:0;width:calc((100vw - 800px) / 2);mask-image:linear-gradient(to right,black 40%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 40%,transparent 100%)}
-.invader-gutter--right{right:0;width:calc((100vw - 800px) / 2);mask-image:linear-gradient(to left,black 40%,transparent 100%);-webkit-mask-image:linear-gradient(to left,black 40%,transparent 100%)}
+.invader-gutter--left{left:0;width:calc((100vw - var(--content-max)) / 2);mask-image:linear-gradient(to right,black 40%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 40%,transparent 100%)}
+.invader-gutter--right{right:0;width:calc((100vw - var(--content-max)) / 2);mask-image:linear-gradient(to left,black 40%,transparent 100%);-webkit-mask-image:linear-gradient(to left,black 40%,transparent 100%)}
 .invader-sprite{
   position:absolute;width:32px;height:32px;
   image-rendering:pixelated;

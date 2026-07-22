@@ -79,7 +79,8 @@ const rawLogoMap = {
   'University of Applied Sciences Regensburg': 'assets/companies/OTHR.png',
   'Universidad EAN, Bogota': 'assets/companies/EAN.png',
   'Stanford BDML (Prof. Cutkosky)': 'assets/companies/Stanford.png',
-  'TUM IN-HAND Lab (Prof. Piazza)': 'assets/companies/IN-HAND-Logo.png'
+  'TUM IN-HAND Lab (Prof. Piazza)': 'assets/companies/IN-HAND-Logo.png',
+  'Tacta Systems': 'assets/companies/tacta.png'
 };
 const logoMap = Object.fromEntries(Object.entries(rawLogoMap).map(([k, v]) => [norm(k), v]));
 
