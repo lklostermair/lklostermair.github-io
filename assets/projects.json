@@ -1,23 +1,6 @@
 [
   {
     "year": "2026",
-    "featured": true,
-    "categories": ["Robotics", "ML"],
-    "title": "Tactile-Informed Diffusion Policy Learning for Robust Dexterous Manipulation",
-    "summary": "Developed tactile fingertip for LEAP Hand. Implemented a VR-based teleoperation approach with visual tactile feedback for data gathering. Trained a Diffusion Policy to utilize multimodal data for dexterous manipulation tasks and compared impact of tactile information on policy performance.",
-    "media": {
-      "images": [
-        "assets/projects/leapft/hardware_setup.jpg",
-        "assets/projects/leapft/holding_inflated.jpg",
-        "assets/projects/leapft/leapft_fingertip_explanation.png",
-        "assets/projects/leapft/leapft_fingertip_diagram.png",
-        "assets/projects/leapft/vr_view.jpg"
-      ]
-    },
-    "tags": ["teleoperation", "multimodal data", "imitation learning", "diffusion policies"]
-  },
-  {
-    "year": "2026",
     "categories": ["Hackathons", "ML"],
     "title": "dandelion — Legal Playbook Assistant",
     "summary": "Munich Legal Hackathon. Built a local AI assistant that turns legal playbooks and contracts into a structured, searchable vault. Ask questions in text or voice, get source-grounded answers with citations, and propose rule updates that go through a lawyer-approval workflow before committing. Won 2nd place out of 25 teams.",
